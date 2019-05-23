@@ -9853,7 +9853,7 @@ function () {
 
 /***/ }),
 
-/***/ 2:
+/***/ 0:
 /*!*****************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fpost&absolutePagePath=%2FUsers%2Fdboutin%2Fdev%2Ftest_nextjs%2Fpages%2Fpost.js ***!
   \*****************************************************************************************************************************/
@@ -9876,5 +9876,5 @@ module.exports = dll_1aef2d0bbc0d334d831c;
 
 /***/ })
 
-},[[2,"static/runtime/webpack.js"]]]);
+},[[0,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=post.js.map
