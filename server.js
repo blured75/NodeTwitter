@@ -12,7 +12,7 @@ app
 
     server.get('/p/:id', (req, res) => {
         const actualPage = '/post'
-        const queryParams = { id: req.params.id }
+        const queryParams = { id: req.params.id } // Get the value of :id
         app.render(req, res, actualPage, queryParams)
     })
 
@@ -20,7 +20,7 @@ app
       return handle(req, res)
     })
 
-    server.listen(3000, err => {
+    server.listen(process.env.PORT || 3000, err => {
       if (err) throw err
       console.log('> Ready on http://localhost:3000')
     })
