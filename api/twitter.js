@@ -24,9 +24,10 @@ class Twitter {
   
     if (typeof window === "undefined") {
       if (hostname === undefined) {
-          let os = require('os');
+          /*let os = require('os');
           console.log(`os.hostame() ${os.hostname()}`)
-          hostname = os.hostname()
+          hostname = os.hostname()*/
+          hostname=localhost
       }
     }
     else {
