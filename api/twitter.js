@@ -27,7 +27,7 @@ class Twitter {
           /*let os = require('os');
           console.log(`os.hostame() ${os.hostname()}`)
           hostname = os.hostname()*/
-          hostname=localhost
+          hostname="localhost"
       }
     }
     else {
