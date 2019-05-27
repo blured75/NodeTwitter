@@ -1,22 +1,33 @@
 import Layout from '../components/MyLayout.js'
 import fetch from 'isomorphic-unfetch'
+import Twitter from '../api/twitter'
+
 
 const Post = props => (
   <Layout>
-    <h1>{props.show.name}</h1>
-    <p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
-    <img src={props.show.image.medium} />
+    <ul>
+     {props.timeline.map(entry => (
+      <li key={entry.id}>
+        <img src={entry.user.profile_image_url}></img>
+        <i>{entry.user.description}</i>
+        <p>{entry.created_at}</p>
+        <p>{entry.text}</p>
+      </li>
+     ))}
+     </ul>
   </Layout>
 )
 
 Post.getInitialProps = async function(context) {
   const { id } = context.query
-  const res = await fetch(`https://api.tvmaze.com/shows/${id}`)
-  const show = await res.json()
 
-  console.log(`Fetched show: ${show.name}`)
+  // Put that in a API file
+  console.log(`Twitter.getHostname() ${Twitter.getHostname()}`)
+  let hostname = Twitter.getHostname()
+  let res = await fetch(`http://${hostname}:3000/external/api/timeline/${id}`)
+  let timeline = await res.json()
   
-  return { show }
+  return { timeline }
 }
 
 export default Post

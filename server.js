@@ -1,3 +1,6 @@
+//import fetch  from "isomorphic-unfetch"
+var fetch = require("isomorphic-unfetch")
+
 const express = require('express')
 const next = require('next')
 
@@ -5,37 +8,50 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const https = require('https')
-const options = {
-  hostname: 'api.twitter.com',
-  port: 443,
-  path: '/1.1/search/tweets.json?q=tamere',
-  method: 'GET',
-  headers: {
-    'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL'
-  }
-}
 
-/*const req = https.request(options, (res) => {
-  res.on('data', (d) => {
-    process.stdout.write(d)
-  })
-})
+// Define a proxy targeting front end API
+// Leave it THERE else it will break the usage of middle from node
 
-req.on('error', (error) => {
-  console.error(error)
-})
-req.end()
-*/
-// const res = await fetch('https://api.tvmaze.com/search/shows?q=dejan')
-// const data = await res.json()
-
-
+      
 app
   .prepare()
   .then(() => {
     const server = express()
 
+    // Setup the front API access point
+    server.get("/external/api/tweets", (req, res) => {
+      console.log(`[server.js] API Tweets" ${req.url}`)
+      res2 = fetch(`https://api.twitter.com/1.1/search/tweets.json?q=sotiria&count=300`, {
+        headers: {
+          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL'
+        }
+      })
+      .then( r => r.json() )
+      .then( data => {
+        //console.log(data)
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(data));
+      })
+    });
+
+    // Setup the front API access point
+    server.get("/external/api/timeline/:username", (req, res) => {
+      console.log(`[server.js] API Timeline" ${req.url}`)
+      console.log(`req.params ${JSON.stringify(req.params)}`)
+
+      res2 = fetch(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.params.username}`, {
+        headers: {
+          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL'
+        }
+      })
+      .then( r => r.json() )
+      .then( data => {
+        //console.log(data)
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(data));
+      })
+    });
+    
     server.get('/p/:id', (req, res) => {
         const actualPage = '/post'
         const queryParams = { id: req.params.id } // Get the value of :id
@@ -55,6 +71,8 @@ app
     console.error(ex.stack)
     process.exit(1)
   })
+
+  
 
   // 1. B64 encode key:pass
   // ek03ejFJaDB3c1pzd21CNkw0djVzcVhLTzpVd2VQWm9ialRpMkw4RVVRYmhFVU1tVTVQdXRaUXNBRUxLNDlSMEtZbEhObFRrRDI1bA==
