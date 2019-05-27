@@ -2,6 +2,7 @@ import Layout from '../components/MyLayout.js'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import { STATUS_CODES } from 'http';
+import Twitter from '../api/twitter.js';
 
 const Index = (props) => (
   <Layout>
@@ -20,12 +21,8 @@ const Index = (props) => (
 
 Index.getInitialProps = async function() {
 
-  const res = await fetch(`http://localhost:3000/external/api/tweets`)
-  
-  const tweets = await res.json()
-
   return {
-    shows: tweets.statuses
+    shows: await Twitter.search("visable")
   }
 }
 

@@ -20,13 +20,7 @@ const Post = props => (
 
 Post.getInitialProps = async function(context) {
   const { id } = context.query
-
-  // Put that in a API file
-  console.log(`Twitter.getHostname() ${Twitter.getHostname()}`)
-  let hostname = Twitter.getHostname()
-  let res = await fetch(`http://${hostname}:3000/external/api/timeline/${id}`)
-  let timeline = await res.json()
-  
+  let timeline = await Twitter.getTimeline(id)
   return { timeline }
 }
 

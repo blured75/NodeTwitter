@@ -1,0 +1,17 @@
+{
+  "modules": {
+    "byIdentifier": {
+      "ignored node_modules/readable-stream/lib util": 0,
+      "ignored node_modules/readable-stream/lib/internal/streams util": 1
+    },
+    "usedIds": {
+      "0": 0,
+      "1": 1
+    }
+  },
+  "chunks": {
+    "byName": {},
+    "bySource": {},
+    "usedIds": []
+  }
+}

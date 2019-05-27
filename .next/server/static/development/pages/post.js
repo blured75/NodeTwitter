@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -130,7 +130,7 @@ function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                hostname = getHostname();
+                hostname = this.getHostname();
                 _context.next = 3;
                 return fetch("http://".concat(hostname, ":3000/external/api/timeline/").concat(id));
 
@@ -148,7 +148,7 @@ function () {
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function getTimeline(_x) {
@@ -156,6 +156,44 @@ function () {
       }
 
       return getTimeline;
+    }()
+  }, {
+    key: "search",
+    value: function () {
+      var _search = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
+      /*#__PURE__*/
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(searched) {
+        var hostname, res, tweets;
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                hostname = this.getHostname();
+                _context2.next = 3;
+                return fetch("http://".concat(hostname, ":3000/external/api/tweets"));
+
+              case 3:
+                res = _context2.sent;
+                _context2.next = 6;
+                return res.json();
+
+              case 6:
+                tweets = _context2.sent;
+                return _context2.abrupt("return", tweets.statuses);
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function search(_x2) {
+        return _search.apply(this, arguments);
+      }
+
+      return search;
     }()
   }, {
     key: "getHostname",
@@ -168,7 +206,7 @@ function () {
         if (hostname === undefined) {
           var os = __webpack_require__(/*! os */ "os");
 
-          console.log("os.hostname() ".concat(os.hostname()));
+          console.log("os.hostame() ".concat(os.hostname()));
           hostname = os.hostname();
         }
       } else {
@@ -1006,30 +1044,22 @@ function () {
   var _ref = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
   /*#__PURE__*/
   _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context) {
-    var id, hostname, res, timeline;
+    var id, timeline;
     return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            id = context.query.id; // Put that in a API file
+            id = context.query.id;
+            _context.next = 3;
+            return _api_twitter__WEBPACK_IMPORTED_MODULE_5__["default"].getTimeline(id);
 
-            console.log("Twitter.getHostname() ".concat(_api_twitter__WEBPACK_IMPORTED_MODULE_5__["default"].getHostname()));
-            hostname = _api_twitter__WEBPACK_IMPORTED_MODULE_5__["default"].getHostname();
-            _context.next = 5;
-            return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default()("http://".concat(hostname, ":3000/external/api/timeline/").concat(id));
-
-          case 5:
-            res = _context.sent;
-            _context.next = 8;
-            return res.json();
-
-          case 8:
+          case 3:
             timeline = _context.sent;
             return _context.abrupt("return", {
               timeline: timeline
             });
 
-          case 10:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -1046,7 +1076,7 @@ function () {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!*****************************!*\
   !*** multi ./pages/post.js ***!
   \*****************************/
