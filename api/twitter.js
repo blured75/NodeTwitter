@@ -2,7 +2,7 @@ class Twitter {
   static async getTimeline(id) {
 
     let hostname = this.getHostname()
-    let res = await fetch(`http://${hostname}/external/api/timeline/${id}`)
+    let res = await fetch(`https://${hostname}/external/api/timeline/${id}`)
     let timeline = await res.json()
 
     return timeline
@@ -10,7 +10,7 @@ class Twitter {
 
   static async search(searched) {
     let hostname = this.getHostname()
-    let res = await fetch(`http://${hostname}/external/api/tweets`)
+    let res = await fetch(`https://${hostname}/external/api/tweets`)
     let tweets = await res.json()
 
     return tweets.statuses
