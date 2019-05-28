@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const TWITTER_KEY = "Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL"
+const TWITTER_KEY = "..."
 
 
 

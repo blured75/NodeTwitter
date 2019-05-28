@@ -35,7 +35,6 @@ Or whatever website to do the conversion (www.base64encode.org for example)
 ***Librairy dependencies***
 $ npm install
 
-
 **Start**
 Development mode
 $ npm run dev
