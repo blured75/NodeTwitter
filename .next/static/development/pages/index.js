@@ -27,12 +27,15 @@ if (typeof window === "undefined") {
     console.log(`os.hostame() ${os.hostname()}`)
     hostname = os.hostname()*/
     if (false) {} else {
-      protocol = "http";
+      protocol = "http:";
       hostname = "localhost:3000";
     }
   }
 } else {
   hostname = window.location.hostname + ":" + window.location.port;
+  protocol = window.location.protocol;
+  console.log("hostname ".concat(hostname));
+  console.log("protocol ".concat(protocol));
 }
 
 var Twitter =
@@ -53,15 +56,16 @@ function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return fetch("".concat(protocol, "://").concat(hostname, "/external/api/timeline/").concat(id));
+                console.log("calling url $protocol}//".concat(hostname, "/external/api/timeline/").concat(id));
+                _context.next = 3;
+                return fetch("".concat(protocol, "//").concat(hostname, "/external/api/timeline/").concat(id));
 
-              case 2:
+              case 3:
                 res = _context.sent;
-                _context.next = 5;
+                _context.next = 6;
                 return res.json();
 
-              case 5:
+              case 6:
                 timeline_from_api = _context.sent;
                 timeline = timeline_from_api.map(function (x) {
                   return {
@@ -75,7 +79,7 @@ function () {
                   timeline: timeline
                 });
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -103,15 +107,16 @@ function () {
                 // URL Encode searched cause it goes through http
                 searched = encodeURIComponent(searched); // console.log(`searched ${searched}`)
 
-                _context2.next = 3;
-                return fetch("".concat(protocol, "://").concat(hostname, "/external/api/tweets/").concat(searched));
+                console.log("calling url ".concat(protocol, "//").concat(hostname, "/external/api/tweets/").concat(searched));
+                _context2.next = 4;
+                return fetch("".concat(protocol, "//").concat(hostname, "/external/api/tweets/").concat(searched));
 
-              case 3:
+              case 4:
                 res = _context2.sent;
-                _context2.next = 6;
+                _context2.next = 7;
                 return res.json();
 
-              case 6:
+              case 7:
                 tweets_from_api = _context2.sent;
                 tweets = tweets_from_api.statuses.map(function (x) {
                   return {
@@ -124,7 +129,7 @@ function () {
                   tweets: tweets
                 });
 
-              case 9:
+              case 10:
               case "end":
                 return _context2.stop();
             }
@@ -10200,46 +10205,48 @@ function (_Component) {
     }
   }, {
     key: "submitComments",
-    value: function submitComments(e) {
-      var _this = this;
-
-      e.preventDefault();
-      var searched = this.refs.searched.value;
-      var res;
-
-      Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
+    value: function () {
+      var _submitComments = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+        var searched, res;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                e.preventDefault();
+                searched = this.refs.searched.value;
+                _context.next = 4;
                 return _api_twitter_js__WEBPACK_IMPORTED_MODULE_9__["default"].search(searched);
 
-              case 2:
+              case 4:
                 res = _context.sent;
                 console.log("Twitter.search(searched) ".concat(res));
+                this.setState(res);
 
-                _this.setState(res);
-
-              case 5:
+              case 7:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
-      }))();
-    }
+        }, _callee, this);
+      }));
+
+      function submitComments(_x) {
+        return _submitComments.apply(this, arguments);
+      }
+
+      return submitComments;
+    }()
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "Visable tweets"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
         className: "search-form",
         onSubmit: function onSubmit(e) {
-          return _this2.submitComments(e);
+          return _this.submitComments(e);
         }
       }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
         type: "text",

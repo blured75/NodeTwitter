@@ -15,15 +15,14 @@ export default class extends Component {
     })
   }
 
-  submitComments(e){
+  async submitComments(e){
     e.preventDefault();
     const searched = this.refs.searched.value
-    let res
-    (async () => { 
-      res = await Twitter.search(searched)
-      console.log(`Twitter.search(searched) ${res}`)
-      this.setState(res)
-    })()
+
+    let res = await Twitter.search(searched)
+    console.log(`Twitter.search(searched) ${res}`)
+    this.setState(res)
+
   }
 
   render() {

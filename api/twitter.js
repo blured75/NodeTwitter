@@ -9,23 +9,28 @@ if (typeof window === "undefined") {
 
       if (process.env.NODE_ENV == 'production') {
         hostname="mockingbird2.herokuapp.com"
-        protocol="https"
+        protocol="https:"
       }
       else {
-        protocol="http"
+        protocol="http:"
         hostname="localhost:3000"
       }
   }
 }
 else {
   hostname = window.location.hostname + ":" +  window.location.port
+  protocol = window.location.protocol
+
+  console.log(`hostname ${hostname}`)
+  console.log(`protocol ${protocol}`)
 }
 
 
 class Twitter {
   static async getTimeline(id) {
+    console.log(`calling url $protocol}//${hostname}/external/api/timeline/${id}`)
 
-    let res = await fetch(`${protocol}://${hostname}/external/api/timeline/${id}`)
+    let res = await fetch(`${protocol}//${hostname}/external/api/timeline/${id}`)
     let timeline_from_api = await res.json()
 
     let timeline = timeline_from_api.map(x => {
@@ -36,10 +41,12 @@ class Twitter {
   }
 
   static async search(searched) {
+    
     // URL Encode searched cause it goes through http
     searched = encodeURIComponent(searched)
     // console.log(`searched ${searched}`)
-    let res = await fetch(`${protocol}://${hostname}/external/api/tweets/${searched}`)
+    console.log(`calling url ${protocol}//${hostname}/external/api/tweets/${searched}`)
+    let res = await fetch(`${protocol}//${hostname}/external/api/tweets/${searched}`)
     let tweets_from_api = await res.json()
 
     let tweets = tweets_from_api.statuses.map(x => {
