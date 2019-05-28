@@ -1,5 +1,5 @@
 let hostname
-let protocol="http"
+let protocol="http:"
   
 if (typeof window === "undefined") {
   if (hostname === undefined) {
@@ -20,9 +20,6 @@ if (typeof window === "undefined") {
 else {
   hostname = window.location.hostname + ":" +  window.location.port
   protocol = window.location.protocol
-
-  console.log(`hostname ${hostname}`)
-  console.log(`protocol ${protocol}`)
 }
 
 
@@ -45,7 +42,6 @@ class Twitter {
     // URL Encode searched cause it goes through http
     searched = encodeURIComponent(searched)
     // console.log(`searched ${searched}`)
-    console.log(`calling url ${protocol}//${hostname}/external/api/tweets/${searched}`)
     let res = await fetch(`${protocol}//${hostname}/external/api/tweets/${searched}`)
     let tweets_from_api = await res.json()
 

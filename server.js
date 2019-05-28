@@ -1,4 +1,3 @@
-//import fetch  from "isomorphic-unfetch"
 var fetch = require("isomorphic-unfetch")
 
 const express = require('express')
@@ -8,13 +7,10 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-
-// Define a proxy targeting front end API
-// Leave it THERE else it will break the usage of middle from node
-//process.on('unhandledRejection', console.log.bind(console))
+const TWITTER_KEY = "Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL"
 
 
-      
+
 app
   .prepare()
   .then(() => {
@@ -30,7 +26,7 @@ app
 
       res2 = fetch(`https://api.twitter.com/1.1/search/tweets.json?q=${searched}&result_type=recent&count=300&tweet_mode=extended`, {
         headers: {
-          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL'
+          'Authorization': TWITTER_KEY
         }
       })
       .then( r => r.json() )
@@ -47,7 +43,7 @@ app
 
       res2 = fetch(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.params.username}`, {
         headers: {
-          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL'
+          'Authorization': TWITTER_KEY
         }
       })
       .then( r => r.json() )
@@ -80,14 +76,3 @@ app
     process.exit(1)
   })
 
-  
-
-  // 1. B64 encode key:pass
-  // ek03ejFJaDB3c1pzd21CNkw0djVzcVhLTzpVd2VQWm9ialRpMkw4RVVRYmhFVU1tVTVQdXRaUXNBRUxLNDlSMEtZbEhObFRrRDI1bA==
-  // 
-  // 2.
-  // curl -X POST -H "Authorization:Basic ek03ejFJaDB3c1pzd21CNkw0djVzcVhLTzpVd2VQWm9ialRpMkw4RVVRYmhFVU1tVTVQdXRaUXNBRUxLNDlSMEtZbEhObFRrRDI1bA==" 
-  // -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=client_credentials" https://api.twitter.com/oauth2/token
-  // --> {"token_type":"bearer","access_token":"AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL"}
-  //
-  // 3. 

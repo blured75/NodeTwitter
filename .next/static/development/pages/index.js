@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var hostname;
-var protocol = "http";
+var protocol = "http:";
 
 if (typeof window === "undefined") {
   if (hostname === undefined) {
@@ -34,8 +34,6 @@ if (typeof window === "undefined") {
 } else {
   hostname = window.location.hostname + ":" + window.location.port;
   protocol = window.location.protocol;
-  console.log("hostname ".concat(hostname));
-  console.log("protocol ".concat(protocol));
 }
 
 var Twitter =
@@ -107,16 +105,15 @@ function () {
                 // URL Encode searched cause it goes through http
                 searched = encodeURIComponent(searched); // console.log(`searched ${searched}`)
 
-                console.log("calling url ".concat(protocol, "//").concat(hostname, "/external/api/tweets/").concat(searched));
-                _context2.next = 4;
+                _context2.next = 3;
                 return fetch("".concat(protocol, "//").concat(hostname, "/external/api/tweets/").concat(searched));
 
-              case 4:
+              case 3:
                 res = _context2.sent;
-                _context2.next = 7;
+                _context2.next = 6;
                 return res.json();
 
-              case 7:
+              case 6:
                 tweets_from_api = _context2.sent;
                 tweets = tweets_from_api.statuses.map(function (x) {
                   return {
@@ -129,7 +126,7 @@ function () {
                   tweets: tweets
                 });
 
-              case 10:
+              case 9:
               case "end":
                 return _context2.stop();
             }
