@@ -55,43 +55,39 @@ function (_Component) {
       });
     }
   }, {
+    key: "submitComments",
+    value: function submitComments(e) {
+      e.preventDefault();
+      var searched = this.refs.searched.value;
+      this.setState(_api_twitter_js__WEBPACK_IMPORTED_MODULE_9__["default"].search(searched));
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "Visable tweets"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
+      var _this = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "Visable tweets"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
+        className: "search-form",
+        onSubmit: function onSubmit(e) {
+          return _this.submitComments(e);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
         type: "text",
-        placeholder: "Author"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("ul", null, this.state.tweets.map(function (tweet) {
+        ref: "searched",
+        placeholder: "Searched"
+      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
+        type: "submit"
+      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("ul", null, this.state.tweets.map(function (tweet) {
         return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("li", {
           key: Math.random()
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_8___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("img", {
+          src: tweet.user_image
+        }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_8___default.a, {
           as: "/p/".concat(tweet.screen_name),
           href: "/post?id=".concat(tweet.screen_name)
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", null, tweet.full_text + " (" + tweet.screen_name + ")")));
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", null, tweet.full_text + " (" + tweet.screen_name + ")")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("p", null));
       })));
     }
-    /*
-    const Index = (props) => (
-      <Layout>
-        <h1>Les tweets de Visable</h1>
-         <input type="text" placeholder="Author" />
-         <ul>
-          {props.tweets.map(tweet => (
-            <li key={Math.random()}>
-              <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
-                <a>{tweet.text + " (" + tweet.screen_name + ")"}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Layout>
-    )
-     Index.getInitialProps = async function() {
-      let tweets = await Twitter.search("Didier Bonnet")
-      return tweets
-    }
-     export default Index
-    */
-
   }], [{
     key: "getInitialProps",
     value: function () {
@@ -134,4 +130,4 @@ function (_Component) {
 /***/ })
 
 })
-//# sourceMappingURL=index.js.5934335fe261ec866c51.hot-update.js.map
+//# sourceMappingURL=index.js.f47510c2072d47f9c922.hot-update.js.map

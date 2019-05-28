@@ -63,35 +63,14 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("ul", null, this.state.tweets.map(function (tweet) {
         return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("li", {
           key: Math.random()
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_8___default.a, {
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("img", {
+          src: tweet.user_image
+        }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_8___default.a, {
           as: "/p/".concat(tweet.screen_name),
           href: "/post?id=".concat(tweet.screen_name)
-        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", null, tweet.full_text + " (" + tweet.screen_name + ")")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("br", null));
+        }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", null, tweet.full_text + " (" + tweet.screen_name + ")")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("p", null));
       })));
     }
-    /*
-    const Index = (props) => (
-      <Layout>
-        <h1>Les tweets de Visable</h1>
-         <input type="text" placeholder="Author" />
-         <ul>
-          {props.tweets.map(tweet => (
-            <li key={Math.random()}>
-              <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
-                <a>{tweet.text + " (" + tweet.screen_name + ")"}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Layout>
-    )
-     Index.getInitialProps = async function() {
-      let tweets = await Twitter.search("Didier Bonnet")
-      return tweets
-    }
-     export default Index
-    */
-
   }], [{
     key: "getInitialProps",
     value: function () {
@@ -134,4 +113,4 @@ function (_Component) {
 /***/ })
 
 })
-//# sourceMappingURL=index.js.88c7daa4646d366a92f4.hot-update.js.map
+//# sourceMappingURL=index.js.deeae1260084205663e6.hot-update.js.map

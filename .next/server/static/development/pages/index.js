@@ -1258,12 +1258,55 @@ function (_Component) {
       });
     }
   }, {
+    key: "submitComments",
+    value: function submitComments(e) {
+      var _this = this;
+
+      e.preventDefault();
+      var searched = this.refs.searched.value;
+      var res;
+
+      Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
+      /*#__PURE__*/
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _api_twitter_js__WEBPACK_IMPORTED_MODULE_9__["default"].search(searched);
+
+              case 2:
+                res = _context.sent;
+                console.log("Twitter.search(searched) ".concat(res));
+
+                _this.setState(res);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "Visable tweets"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("h1", null, "Visable tweets"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("form", {
+        className: "search-form",
+        onSubmit: function onSubmit(e) {
+          return _this2.submitComments(e);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
         type: "text",
-        placeholder: "Author"
-      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("ul", null, this.state.tweets.map(function (tweet) {
+        ref: "searched",
+        placeholder: "Searched"
+      }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("input", {
+        type: "submit"
+      })), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("ul", null, this.state.tweets.map(function (tweet) {
         return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("li", {
           key: Math.random()
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("img", {
@@ -1274,53 +1317,30 @@ function (_Component) {
         }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("a", null, tweet.full_text + " (" + tweet.screen_name + ")")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("p", null));
       })));
     }
-    /*
-    const Index = (props) => (
-      <Layout>
-        <h1>Les tweets de Visable</h1>
-         <input type="text" placeholder="Author" />
-         <ul>
-          {props.tweets.map(tweet => (
-            <li key={Math.random()}>
-              <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
-                <a>{tweet.text + " (" + tweet.screen_name + ")"}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Layout>
-    )
-     Index.getInitialProps = async function() {
-      let tweets = await Twitter.search("Didier Bonnet")
-      return tweets
-    }
-     export default Index
-    */
-
   }], [{
     key: "getInitialProps",
     value: function () {
       var _getInitialProps = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
       /*#__PURE__*/
-      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var tweets;
-        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return _api_twitter_js__WEBPACK_IMPORTED_MODULE_9__["default"].search("#visable");
 
               case 2:
-                tweets = _context.sent;
-                return _context.abrupt("return", tweets);
+                tweets = _context2.sent;
+                return _context2.abrupt("return", tweets);
 
               case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
       function getInitialProps() {

@@ -15,12 +15,26 @@ export default class extends Component {
     })
   }
 
+  submitComments(e){
+    e.preventDefault();
+    const searched = this.refs.searched.value
+    let res
+    (async () => { 
+      res = await Twitter.search(searched)
+      console.log(`Twitter.search(searched) ${res}`)
+      this.setState(res)
+    })()
+  }
+
   render() {
     return (
       <Layout>
         <h1>Visable tweets</h1>
 
-        <input type="text" placeholder="Author" />
+        <form className="search-form" onSubmit={(e)=> this.submitComments(e)} >
+          <input type="text" ref="searched" placeholder="Searched" />
+          <input type="submit" />
+        </form>
 
         <ul>
           {this.state.tweets.map(tweet => (
@@ -33,34 +47,10 @@ export default class extends Component {
             </li>
           ))}
         </ul>
+
+        
       </Layout>
     )
 
   }
-  /*
-  const Index = (props) => (
-    <Layout>
-      <h1>Les tweets de Visable</h1>
-
-      <input type="text" placeholder="Author" />
-
-      <ul>
-        {props.tweets.map(tweet => (
-          <li key={Math.random()}>
-            <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
-              <a>{tweet.text + " (" + tweet.screen_name + ")"}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Layout>
-  )
-
-  Index.getInitialProps = async function() {
-    let tweets = await Twitter.search("Didier Bonnet")
-    return tweets
-  }
-
-  export default Index
-  */
 }
