@@ -1,19 +1,54 @@
+let hostname
+let protocol="http"
+  
+if (typeof window === "undefined") {
+  if (hostname === undefined) {
+      /*let os = require('os');
+      console.log(`os.hostame() ${os.hostname()}`)
+      hostname = os.hostname()*/
+
+      if (process.env.NODE_ENV == 'production') {
+        hostname="mockingbird2.herokuapp.com"
+        protocol="https"
+      }
+      else {
+        protocol="http"
+        hostname="localhost:3000"
+      }
+  }
+}
+else {
+  hostname = window.location.hostname + ":" +  window.location.port
+}
+
+
 class Twitter {
   static async getTimeline(id) {
 
-    let hostname = this.getHostname()
-    let res = await fetch(`https://${hostname}/external/api/timeline/${id}`)
-    let timeline = await res.json()
+    let res = await fetch(`${protocol}://${hostname}/external/api/timeline/${id}`)
+    let timeline_from_api = await res.json()
 
-    return timeline
+    let timeline = timeline_from_api.map(x => {
+      return {profile_image_url: x.user.profile_image_url, description: x.user.description, created_at: x.created_at, text: x.text}
+    })
+
+    return {timeline: timeline}
   }
 
   static async search(searched) {
-    let hostname = this.getHostname()
-    let res = await fetch(`https://${hostname}/external/api/tweets`)
-    let tweets = await res.json()
+    // URL Encode searched cause it goes through http
+    searched = encodeURIComponent(searched)
+    // console.log(`searched ${searched}`)
+    let res = await fetch(`${protocol}://${hostname}/external/api/tweets/${searched}`)
+    let tweets_from_api = await res.json()
 
-    return tweets.statuses
+    let tweets = tweets_from_api.statuses.map(x => {
+      return {screen_name: x.user.screen_name, full_text: x.full_text, user_image: x.user.profile_image_url}
+    })
+
+    return {
+      tweets: tweets
+    }
   }
 
 
@@ -24,10 +59,16 @@ class Twitter {
   
     if (typeof window === "undefined") {
       if (hostname === undefined) {
-          /*let os = require('os');
+          let os = require('os');
           console.log(`os.hostame() ${os.hostname()}`)
-          hostname = os.hostname()*/
-          hostname="mockingbird2.herokuapp.com"
+          hostname = os.hostname()
+
+          if (process.env.NODE_ENV == 'production') {
+            hostname="mockingbird2.herokuapp.com"
+          }
+          else {
+            hostname="localhost:3000"
+          }
       }
     }
     else {

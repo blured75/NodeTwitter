@@ -18,6 +18,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var hostname;
+var protocol = "http";
+
+if (typeof window === "undefined") {
+  if (hostname === undefined) {
+    /*let os = require('os');
+    console.log(`os.hostame() ${os.hostname()}`)
+    hostname = os.hostname()*/
+    if (false) {} else {
+      protocol = "http";
+      hostname = "localhost:3000";
+    }
+  }
+} else {
+  hostname = window.location.hostname + ":" + window.location.port;
+}
 
 var Twitter =
 /*#__PURE__*/
@@ -32,30 +48,39 @@ function () {
       var _getTimeline = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
       /*#__PURE__*/
       _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
-        var hostname, res, timeline;
+        var res, timeline_from_api, timeline;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                hostname = this.getHostname();
-                _context.next = 3;
-                return fetch("http://".concat(hostname, ":3000/external/api/timeline/").concat(id));
+                _context.next = 2;
+                return fetch("".concat(protocol, "://").concat(hostname, "/external/api/timeline/").concat(id));
 
-              case 3:
+              case 2:
                 res = _context.sent;
-                _context.next = 6;
+                _context.next = 5;
                 return res.json();
 
-              case 6:
-                timeline = _context.sent;
-                return _context.abrupt("return", timeline);
+              case 5:
+                timeline_from_api = _context.sent;
+                timeline = timeline_from_api.map(function (x) {
+                  return {
+                    profile_image_url: x.user.profile_image_url,
+                    description: x.user.description,
+                    created_at: x.created_at,
+                    text: x.text
+                  };
+                });
+                return _context.abrupt("return", {
+                  timeline: timeline
+                });
 
               case 8:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee);
       }));
 
       function getTimeline(_x) {
@@ -70,14 +95,16 @@ function () {
       var _search = Object(_babel_runtime_corejs2_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(
       /*#__PURE__*/
       _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(searched) {
-        var hostname, res, tweets;
+        var res, tweets_from_api, tweets;
         return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                hostname = this.getHostname();
+                // URL Encode searched cause it goes through http
+                searched = encodeURIComponent(searched); // console.log(`searched ${searched}`)
+
                 _context2.next = 3;
-                return fetch("http://".concat(hostname, ":3000/external/api/tweets"));
+                return fetch("".concat(protocol, "://").concat(hostname, "/external/api/tweets/").concat(searched));
 
               case 3:
                 res = _context2.sent;
@@ -85,15 +112,24 @@ function () {
                 return res.json();
 
               case 6:
-                tweets = _context2.sent;
-                return _context2.abrupt("return", tweets.statuses);
+                tweets_from_api = _context2.sent;
+                tweets = tweets_from_api.statuses.map(function (x) {
+                  return {
+                    screen_name: x.user.screen_name,
+                    full_text: x.full_text,
+                    user_image: x.user.profile_image_url
+                  };
+                });
+                return _context2.abrupt("return", {
+                  tweets: tweets
+                });
 
-              case 8:
+              case 9:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2);
       }));
 
       function search(_x2) {
@@ -115,6 +151,10 @@ function () {
 
           console.log("os.hostame() ".concat(os.hostname()));
           hostname = os.hostname();
+
+          if (false) {} else {
+            hostname = "localhost:3000";
+          }
         }
       } else {
         hostname = window.location.hostname;
@@ -4627,18 +4667,6 @@ module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 /***/ }),
 
-/***/ "./node_modules/isomorphic-unfetch/browser.js":
-/*!****************************************************!*\
-  !*** ./node_modules/isomorphic-unfetch/browser.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = window.fetch || (window.fetch = __webpack_require__(/*! unfetch */ "./node_modules/unfetch/dist/unfetch.mjs").default || __webpack_require__(/*! unfetch */ "./node_modules/unfetch/dist/unfetch.mjs"));
-
-
-/***/ }),
-
 /***/ "./node_modules/next-server/dist/lib/mitt.js":
 /*!***************************************************!*\
   !*** ./node_modules/next-server/dist/lib/mitt.js ***!
@@ -9140,21 +9168,6 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ "./node_modules/unfetch/dist/unfetch.mjs":
-/*!***********************************************!*\
-  !*** ./node_modules/unfetch/dist/unfetch.mjs ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(__webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (function(e,n){return n=n||{},new Promise(function(t,r){var s=new XMLHttpRequest,o=[],u=[],i={},a=function(){return{ok:2==(s.status/100|0),statusText:s.statusText,status:s.status,url:s.responseURL,text:function(){return Promise.resolve(s.responseText)},json:function(){return Promise.resolve(JSON.parse(s.responseText))},blob:function(){return Promise.resolve(new Blob([s.response]))},clone:a,headers:{keys:function(){return o},entries:function(){return u},get:function(e){return i[e.toLowerCase()]},has:function(e){return e.toLowerCase()in i}}}};for(var l in s.open(n.method||"get",e,!0),s.onload=function(){s.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm,function(e,n,t){o.push(n=n.toLowerCase()),u.push([n,t]),i[n]=i[n]?i[n]+","+t:t}),t(a())},s.onerror=r,s.withCredentials="include"==n.credentials,n.headers)s.setRequestHeader(l,n.headers[l]);s.send(n.body||null)})});
-//# sourceMappingURL=unfetch.mjs.map
-
-
-/***/ }),
-
 /***/ "./node_modules/url/url.js":
 /*!*********************************!*\
   !*** ./node_modules/url/url.js ***!
@@ -9986,10 +9999,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_MyLayout_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/MyLayout.js */ "./components/MyLayout.js");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! isomorphic-unfetch */ "./node_modules/isomorphic-unfetch/browser.js");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _api_twitter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api/twitter */ "./api/twitter.js");
-
+/* harmony import */ var _api_twitter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api/twitter */ "./api/twitter.js");
 
 
 
@@ -9997,14 +10007,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Post = function Post(props) {
-  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("ul", null, props.timeline.map(function (entry) {
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_MyLayout_js__WEBPACK_IMPORTED_MODULE_3__["default"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("ul", null, props.timeline.map(function (entry, index) {
     return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("li", {
       key: entry.id
-    }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
-      src: entry.user.profile_image_url
-    }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", null, entry.user.description), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, entry.created_at), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, entry.text));
+    }, image(entry, index), description(entry, index), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, entry.created_at), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, entry.text));
   })));
 };
+
+function description(entry, index) {
+  if (index == 0) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("i", null, entry.description);else return "";
+}
+
+function image(entry, index) {
+  if (index == 0) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("img", {
+    src: entry.profile_image_url
+  });else return "";
+}
 
 Post.getInitialProps =
 /*#__PURE__*/
@@ -10019,13 +10037,11 @@ function () {
           case 0:
             id = context.query.id;
             _context.next = 3;
-            return _api_twitter__WEBPACK_IMPORTED_MODULE_5__["default"].getTimeline(id);
+            return _api_twitter__WEBPACK_IMPORTED_MODULE_4__["default"].getTimeline(id);
 
           case 3:
             timeline = _context.sent;
-            return _context.abrupt("return", {
-              timeline: timeline
-            });
+            return _context.abrupt("return", timeline);
 
           case 5:
           case "end":
@@ -10044,7 +10060,7 @@ function () {
 
 /***/ }),
 
-/***/ 4:
+/***/ 1:
 /*!*****************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fpost&absolutePagePath=%2FUsers%2Fdboutin%2Fdev%2Ftest_nextjs%2Fpages%2Fpost.js ***!
   \*****************************************************************************************************************************/
@@ -10067,5 +10083,5 @@ module.exports = dll_1aef2d0bbc0d334d831c;
 
 /***/ })
 
-},[[4,"static/runtime/webpack.js"]]]);
+},[[1,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=post.js.map

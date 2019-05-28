@@ -11,6 +11,8 @@ const handle = app.getRequestHandler()
 
 // Define a proxy targeting front end API
 // Leave it THERE else it will break the usage of middle from node
+//process.on('unhandledRejection', console.log.bind(console))
+
 
       
 app
@@ -19,16 +21,20 @@ app
     const server = express()
 
     // Setup the front API access point
-    server.get("/external/api/tweets", (req, res) => {
+    server.get("/external/api/tweets/:searched", (req, res) => {
       console.log(`[server.js] API Tweets" ${req.url}`)
-      res2 = fetch(`https://api.twitter.com/1.1/search/tweets.json?q=sotiria&count=300`, {
+      let searched = req.params.searched
+      // Encode searched cause we are calling through http
+      searched = encodeURIComponent(searched)
+      //console.log(`searched : ${searched}`)
+
+      res2 = fetch(`https://api.twitter.com/1.1/search/tweets.json?q=${searched}&result_type=recent&count=300&tweet_mode=extended`, {
         headers: {
           'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAFRL%2BgAAAAAAwIv%2BZM1%2Bmw%2Fq7iPdP5%2F6SwFncuU%3Dv9K8QFoNBsklHRlmZvhuLvdql4vzt4rworhoPcFUFiLWKD6xsL'
         }
       })
       .then( r => r.json() )
       .then( data => {
-        //console.log(data)
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(data));
       })
@@ -46,7 +52,6 @@ app
       })
       .then( r => r.json() )
       .then( data => {
-        //console.log(data)
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(data));
       })

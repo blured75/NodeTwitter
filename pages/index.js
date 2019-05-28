@@ -1,29 +1,66 @@
 import Layout from '../components/MyLayout.js'
 import Link from 'next/link'
-import fetch from 'isomorphic-unfetch'
-import { STATUS_CODES } from 'http';
 import Twitter from '../api/twitter.js';
+import React, { Component } from 'react'
 
-const Index = (props) => (
-  <Layout>
-    <h1>Dejan Show on Tiléorasi</h1>
-    <ul>
-      {props.shows.map(show => (
-        <li key={Math.random()}>
-          <Link as={`/p/${show.user.screen_name}`} href={`/post?id=${show.user.screen_name}`}>
-            <a>{show.text + "|" + show.user.screen_name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </Layout>
-)
-
-Index.getInitialProps = async function() {
-
-  return {
-    shows: await Twitter.search("visable")
+export default class extends Component {
+  static async getInitialProps() {
+    let tweets = await Twitter.search("#visable")
+    return tweets
   }
-}
 
-export default Index
+  componentWillMount() {
+    this.setState({
+      tweets: this.props.tweets
+    })
+  }
+
+  render() {
+    return (
+      <Layout>
+        <h1>Visable tweets</h1>
+
+        <input type="text" placeholder="Author" />
+
+        <ul>
+          {this.state.tweets.map(tweet => (
+            <li key={Math.random()}>
+              <img src={tweet.user_image}/>
+              <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
+                <a>{tweet.full_text + " (" + tweet.screen_name + ")"}</a>
+              </Link>
+              <p/>
+            </li>
+          ))}
+        </ul>
+      </Layout>
+    )
+
+  }
+  /*
+  const Index = (props) => (
+    <Layout>
+      <h1>Les tweets de Visable</h1>
+
+      <input type="text" placeholder="Author" />
+
+      <ul>
+        {props.tweets.map(tweet => (
+          <li key={Math.random()}>
+            <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
+              <a>{tweet.text + " (" + tweet.screen_name + ")"}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Layout>
+  )
+
+  Index.getInitialProps = async function() {
+    let tweets = await Twitter.search("Didier Bonnet")
+    return tweets
+  }
+
+  export default Index
+  */
+}
