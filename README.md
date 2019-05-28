@@ -9,7 +9,7 @@ The entry point given to the application are defined in server.js with express
 
   * /external/api/tweets/:searched ->  
     https://api.twitter.com/1.1/search/tweets.json?q=${searched}&result_type=recent&count=300&tweet_mode=extended  
-    
+
   * /external/api/timeline/:username" ->  
     https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.params.username}  
 
@@ -18,11 +18,12 @@ The entry point given to the application are defined in server.js with express
 ## Installation
 ### Binding your twitter account to the application
 
-Modify server.js to put your twitter key instead  
+Modify server.js to put your twitter key instead or set the env variable TWITTER_KEY with your key for twitter
 
 ```
 const TWITTER_KEY = "......." // (line 11)
 ```
+
 If you don't have any twitter key, you need to :
   * Create an account on twitter
   * Ask for access for dev app platform
@@ -41,6 +42,13 @@ https://developer.twitter.com/en/docs/basics/authentication/overview/application
 ```
 $ echo -n 'my_consumer_key:my_consumer_secret' | openssl base64 
 Or whatever website to do the conversion (www.base64encode.org for example)
+```
+4. Ask twitter/oauth2 for your token with the base64 string you've generated
+
+Use curl or whatever tool you've got under the hand
+
+```
+curl -X POST -H "Authorization:Basic ...............there_your_b64_string............" -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=client_credentials" https://api.twitter.com/oauth2/token
 ```
 
 <br/><br/>
