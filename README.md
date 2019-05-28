@@ -7,8 +7,11 @@ Indeed the content is generated either on the client or on the server
 For now the api used is a proxy to twitter JSON api.  
 The entry point given to the application are defined in server.js with express  
 
-  * /external/api/tweets/:searched -> forward the query to https://api.twitter.com/1.1/search/tweets.json?q=${searched}&result_type=recent&count=300&tweet_mode=extended  
-  * /external/api/timeline/:username" -> forward the query to https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.params.username}  
+  * /external/api/tweets/:searched ->  
+    https://api.twitter.com/1.1/search/tweets.json?q=${searched}&result_type=recent&count=300&tweet_mode=extended  
+    
+  * /external/api/timeline/:username" ->  
+    https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.params.username}  
 
 <br/><br/>
 
