@@ -1,11 +1,21 @@
 // We cannot use import there
 const disc_router = require('./routes/disc_router') 
 const twitter_router = require('./routes/twitter_router')
-
-var fetch = require("isomorphic-unfetch")
-
+const fetch = require("isomorphic-unfetch")
 const express = require('express')
 const next = require('next')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = process.env.DB_PASSWORD
+const DB_SERVER = process.env.DB_SERVER
+const DB_NAME = process.env.DB_NAME
+
+const db = mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_SERVER}/test?retryWrites=true&w=majority`, {useNewUrlParser: true}, error => {
+  // Πολη ομορφη error handler, für die grosses feignasses
+  console.log(error)
+});
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -16,6 +26,9 @@ app
   .then(() => {
     const server = express()
     
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: true }));
+
     server.use('/external/api', twitter_router)
     server.use('/api/discs', disc_router)
 

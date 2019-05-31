@@ -51,6 +51,10 @@ Use curl or whatever tool you've got under the hand
 curl -X POST -H "Authorization:Basic ...............there_your_b64_string............" -H "Content-Type: application/x-www-form-urlencoded;charset=UTF-8" -d "grant_type=client_credentials" https://api.twitter.com/oauth2/token
 ```
 
+The key to use should contain "Bearer" followed by the generated string from curl result
+```
+Bearer .....................
+```
 <br/><br/>
 
 ### Install the librairies dependencies
@@ -76,3 +80,114 @@ $ npm run build
 <br/><br/>
 ## TODO
 Use CSS to put lipstick & rimmel on the look
+
+<br/><br/>
+## Cerise sur le gateau
+Access to a CRUD api for disc managements
+
+### Installation of the dependencies ###
+1. Create an account and a server on mongodb atlas https://cloud.mongodb.com/, it's free for 500 MB usage & very simple (or use any mongodb server)
+2. Fill the environment variable : DB_USER, DB_PASSWORD, DB_SERVER with the user / password who make connexion to the database and the server name to use
+
+Model :
+```
+{
+  id: ...
+  title_album: ...
+  composers: ...
+  year: ...
+}
+```
+
+**Create :**
+***POST /api/discs***
+
+Body
+```
+{
+  title_album: ...
+  composers: ...
+  year: ...
+}
+```
+
+return the json with generated id
+
+**Fetch :**
+***All the discs available -> GET /api/discs***
+
+return
+```
+[
+  {
+     title_album: ...,
+      composers: ...,
+      year: ...
+  },
+  {
+     title_album: ...,
+      composers: ...,
+      year: ...
+  },
+  ...
+]
+```
+
+***One disc via _id -> GET /api/discs/:id***
+
+return 
+```
+{
+    title_album: ...,
+    composers: ...,
+    year: ...
+}
+```
+
+**Update :**
+***One fully disc set -> PUT /api/discs/:id***
+
+Body
+```
+    {
+        "title_album": "la mère",
+        "composers": "de nounours",
+        "year": "2010"
+    }
+```
+
+return
+```
+{
+    "_id": "...",
+    "title_album": "la mère",
+    "composers": "de nounours",
+    "year": "2010",
+    "__v": 0
+}
+```
+
+***Some properties of a disc -> PATCH /api/discs/:id***
+Body
+```
+    {
+        "composers": "de Nicolas",
+        "year": "2019"
+    }
+```
+
+return 
+```
+  {
+    "_id": "5cf10ec4b73c165329d0b3dc",
+    "title_album": "la mère",
+    "composers": "de Nicolas",
+    "year": "2019",
+    "__v": 0
+  }
+```
+
+**Delete :**
+***a disc -> DELETE /api/discs/:id***
+
+
