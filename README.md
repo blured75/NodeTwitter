@@ -133,7 +133,7 @@ return
 ]
 ```
 
-***One disc via _id -> GET /api/discs/:id***
+***One disc via _id -> GET /api/disc/:id***
 
 return 
 ```
@@ -145,7 +145,7 @@ return
 ```
 
 **Update :**
-***One fully disc set -> PUT /api/discs/:id***
+***One fully disc set -> PUT /api/disc/:id***
 
 Body
 ```
@@ -167,7 +167,7 @@ return
 }
 ```
 
-***Some properties of a disc -> PATCH /api/discs/:id***
+***Some properties of a disc -> PATCH /api/disc/:id***
 Body
 ```
     {
@@ -188,6 +188,7 @@ return
 ```
 
 **Delete :**
-***a disc -> DELETE /api/discs/:id***
+***a disc -> DELETE /api/disc/:id***
+***All the discs -> DELETE /api/discs***
 
 

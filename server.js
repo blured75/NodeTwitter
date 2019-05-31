@@ -1,7 +1,7 @@
 // We cannot use import there
 const disc_router = require('./routes/disc_router') 
+const discs_router = require('./routes/discs_router') 
 const twitter_router = require('./routes/twitter_router')
-const fetch = require("isomorphic-unfetch")
 const express = require('express')
 const next = require('next')
 const mongoose = require('mongoose')
@@ -30,7 +30,8 @@ app
     server.use(bodyParser.urlencoded({ extended: true }));
 
     server.use('/external/api', twitter_router)
-    server.use('/api/discs', disc_router)
+    server.use('/api/disc', disc_router) // Operation on one disc
+    server.use('/api/discs', discs_router) // Operations on multiple discs
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ APPLICATION ENTRY POINTS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Link to display the timeline of a user
@@ -57,71 +58,3 @@ app
     console.error(ex.stack)
     process.exit(1)
   })
-
-
-function prepareAPIDiscsEntryPoints(server) {
-  server.get('/api/discs', (req, res) => {
-    res.json([
-            {
-                id: 1,
-                album_title: "Machine Head",
-                composers: "Deep Purple",
-                creation_year: "1971"
-            },
-            {
-                id: 2,
-                album_title: "Another brick in the wall",
-                composers: "Pink Floyd",
-                creation_year: "1979"
-            }
-        ])
-  })
-  server.get('/api/discs/2', (req,res)=>{
-      res.json(
-              {
-                id: 2,
-                album_title: "Another brick in the wall",
-                composers: "Pink Floyd",
-                creation_year: "1979"
-              }
-          )
-  })
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ API ENTRY POINT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function prepareAPIEntryPoints(server) {
-  server.get("/external/api/tweets/:searched", (req, res) => {
-    console.log(`[server.js] API Tweets" ${req.url}`)
-    let searched = req.params.searched
-    // Encode searched cause we are calling through http
-    searched = encodeURIComponent(searched)
-    //console.log(`searched : ${searched}`)
-
-    res2 = fetch(`https://api.twitter.com/1.1/search/tweets.json?q=${searched}&result_type=recent&count=300&tweet_mode=extended`, {
-      headers: {
-        'Authorization': TWITTER_KEY
-      }
-    })
-    .then( r => r.json() )
-    .then( data => {
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(data));
-    })
-  });
-
-  server.get("/external/api/timeline/:username", (req, res) => {
-    console.log(`[server.js] API Timeline" ${req.url}`)
-    console.log(`req.params ${JSON.stringify(req.params)}`)
-
-    res2 = fetch(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${req.params.username}`, {
-      headers: {
-        'Authorization': TWITTER_KEY
-      }
-    })
-    .then( r => r.json() )
-    .then( data => {
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(data));
-    })
-  });
-}

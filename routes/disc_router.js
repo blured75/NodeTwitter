@@ -4,17 +4,6 @@ const disc_router = express.Router()
 
 
 
-disc_router.route('/')
-    .get((req,res) => {
-        Disc.find({}, (err, discs) => {
-            res.json(discs)
-        }) 
-    })
-    .post((req, res) => {
-        let disc = new Disc(req.body);
-        disc.save();
-        res.status(201).send(disc) 
-    })
 
 disc_router.use('/:discId', (req, res, next)=>{
     Disc.findById( req.params.discId, (err,disc)=>{
