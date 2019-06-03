@@ -6,7 +6,6 @@ import JSON2 from '../utils/JSON2.js'
 
 
 
-
 class Ute extends React.Component {
     static async getInitialProps({pathname, asPath, req, res, err}) {
        

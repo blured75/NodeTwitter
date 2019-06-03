@@ -39,9 +39,14 @@ export default class extends Component {
         <ul>
           {this.state.tweets.map(tweet => (
             <li key={Math.random()}>
-              <img src={tweet.user_image}/>
-              <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`}>
-                <a>{tweet.full_text + " (" + tweet.screen_name + ")"}</a>
+              <img src={tweet.user_image}/> { // /post?id=${tweet.screen_name}
+                                            }
+              <Link as={`/p/${tweet.screen_name}`} href={`/post?id=${tweet.screen_name}`} >
+                <a>with /p/.... {tweet.full_text + " (" + tweet.screen_name + ")"}</a>
+              </Link>
+
+              <Link href={{ pathname: '/post', query: { id: tweet.screen_name}  }}>
+                 <a>with href and url object .... {tweet.full_text + " (" + tweet.screen_name + ")"}</a>
               </Link>
               <p/>
             </li>

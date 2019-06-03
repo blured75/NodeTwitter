@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+const fetch = require('isomorphic-unfetch')
 
 const express = require('express')
 const twitter_router = express.Router();
