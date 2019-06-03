@@ -1,3 +1,7 @@
+import fetch from 'isomorphic-unfetch'
+
+
+
 let hostname
 let protocol="http:"
   
