@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 
 export default class extends Component {
   static async getInitialProps() {
+    console.log("getInitialProps de Index")
     let tweets = await Twitter.search("#visable")
     return tweets
   }
