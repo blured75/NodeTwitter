@@ -1,7 +1,8 @@
 import Layout from '../components/MyLayout.js'
 import Link from 'next/link'
-import Twitter from '../api/twitter.js';
+import Twitter from '../api/twitter.js'
 import React, { Component } from 'react'
+import Page from '../components/Page'
 
 export default class extends Component {
   static async getInitialProps() {
@@ -30,6 +31,8 @@ export default class extends Component {
     return (
       <Layout>
         <h1>Visable tweets</h1>
+
+        <Page title="MobX" linkTo="/other" />
 
         <form className="search-form" onSubmit={(e)=> this.submitComments(e)} >
           <input type="text" ref="searched" placeholder="Searched" />
