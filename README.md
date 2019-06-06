@@ -18,10 +18,10 @@ The entry point given to the application are defined in server.js with express
 ## Installation
 ### Binding your twitter account to the application
 
-Modify server.js to put your twitter key instead or set the env variable TWITTER_KEY with your key for twitter
+Modify twitter_router.js to put your twitter key instead or set the env variable TWITTER_KEY with your key for twitter
 
 ```
-const TWITTER_KEY = "......." // (line 11)
+const TWITTER_KEY = "......." // (line 6)
 ```
 
 If you don't have any twitter key, you need to :

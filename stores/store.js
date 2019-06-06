@@ -9,8 +9,7 @@ class Store {
   @observable light = false
 
   constructor(isServer, initialData = {}) {
-    this.lastUpdate =
-      initialData.lastUpdate != null ? initialData.lastUpdate : Date.now()
+    this.lastUpdate = initialData.lastUpdate != null ? initialData.lastUpdate : Date.now()
     this.light = !!initialData.light
   }
 
@@ -18,7 +17,7 @@ class Store {
     this.timer = setInterval(() => {
       this.lastUpdate = Date.now()
       this.light = true
-    }, 1000)
+    }, 5)
   }
 
   stop = () => clearInterval(this.timer)

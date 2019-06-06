@@ -14567,7 +14567,7 @@ var Store = (_class = (_temp = function Store(isServer) {
       _this2.timer = setInterval(function () {
         _this2.lastUpdate = _babel_runtime_corejs2_core_js_date_now__WEBPACK_IMPORTED_MODULE_0___default()();
         _this2.light = true;
-      }, 1000);
+      }, 5);
     };
   }
 })), _class);
