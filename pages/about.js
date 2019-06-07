@@ -1,17 +1,7 @@
 import Layout from '../components/MyLayout.js'
-import { observable } from 'mobx'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 
-const appState = observable({
-  count : 0
-})
-appState.increment = function() {
-  this.count++
-}
-appState.decrement = function() {
-  this.count--
-}
-
+@inject('store')
 @observer
 class About extends React.Component {
 
@@ -20,23 +10,13 @@ class About extends React.Component {
       <Layout>
         <p>This is the updated about page</p>
         <div>
-          Counter : {this.count}<br/>
-          <button onClick={this.handleDec}>-</button>
-          <button onClick={this.handleInc}>+</button>
+          Counter : {this.props.store.count}<br/>
+          <button onClick={this.props.store.decrement}>-</button>
+          <button onClick={this.props.store.increment}>+</button>
         </div>
       </Layout>
     )
   }
-
-  handleDec = () => {
-    
-  }
-
-  handleInc = () => {
-    this.count++
-  }
-
-
 }
 
 export default About

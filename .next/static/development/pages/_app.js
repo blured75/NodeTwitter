@@ -14517,7 +14517,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _class, _descriptor, _descriptor2, _descriptor3, _temp;
+var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
 
 
 
@@ -14540,8 +14540,18 @@ var Store = (_class = (_temp = function Store(isServer) {
     return clearInterval(_this.timer);
   };
 
+  Object(_babel_runtime_corejs2_helpers_esm_initializerDefineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(this, "count", _descriptor4, this);
+
+  this.increment = function () {
+    _this.count++;
+  };
+
+  this.decrement = function () {
+    _this.count--;
+  };
+
   this.lastUpdate = initialData.lastUpdate != null ? initialData.lastUpdate : _babel_runtime_corejs2_core_js_date_now__WEBPACK_IMPORTED_MODULE_0___default()();
-  this.light = !!initialData.light;
+  this.light = !!initialData.light; //this.count = initialData.count != null ? initialData.count : 0
 }, _temp), (_descriptor = Object(_babel_runtime_corejs2_helpers_esm_applyDecoratedDescriptor__WEBPACK_IMPORTED_MODULE_3__["default"])(_class.prototype, "lastUpdate", [mobx__WEBPACK_IMPORTED_MODULE_5__["observable"]], {
   configurable: true,
   enumerable: true,
@@ -14569,6 +14579,13 @@ var Store = (_class = (_temp = function Store(isServer) {
         _this2.light = true;
       }, 5);
     };
+  }
+}), _descriptor4 = Object(_babel_runtime_corejs2_helpers_esm_applyDecoratedDescriptor__WEBPACK_IMPORTED_MODULE_3__["default"])(_class.prototype, "count", [mobx__WEBPACK_IMPORTED_MODULE_5__["observable"]], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function initializer() {
+    return 0;
   }
 })), _class);
 var store = null;

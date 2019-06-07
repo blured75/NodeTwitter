@@ -11,6 +11,8 @@ class Store {
   constructor(isServer, initialData = {}) {
     this.lastUpdate = initialData.lastUpdate != null ? initialData.lastUpdate : Date.now()
     this.light = !!initialData.light
+
+    //this.count = initialData.count != null ? initialData.count : 0
   }
 
   @action start = () => {
@@ -21,6 +23,16 @@ class Store {
   }
 
   stop = () => clearInterval(this.timer)
+
+  // ~~~~~~~~~~~ start of real mobx usage 
+  @observable count = 0
+  
+  increment = () => {
+    this.count++
+  }
+  decrement = () => {
+    this.count--
+  }
 }
 
 let store = null
