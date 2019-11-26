@@ -150,8 +150,8 @@ return
 Body
 ```
     {
-        "title_album": "la mère",
-        "composers": "de nounours",
+        "title_album": "machine head",
+        "composers": "deep purple",
         "year": "2010"
     }
 ```
@@ -160,8 +160,8 @@ return
 ```
 {
     "_id": "...",
-    "title_album": "la mère",
-    "composers": "de nounours",
+    "title_album": "machine head",
+    "composers": "deep purple",
     "year": "2010",
     "__v": 0
 }
@@ -171,8 +171,8 @@ return
 Body
 ```
     {
-        "composers": "de Nicolas",
-        "year": "2019"
+        "composers": "deep purple",
+        "year": "1971"
     }
 ```
 
@@ -180,9 +180,9 @@ return
 ```
   {
     "_id": "5cf10ec4b73c165329d0b3dc",
-    "title_album": "la mère",
-    "composers": "de Nicolas",
-    "year": "2019",
+    "title_album": "machine head",
+    "composers": "deep purple",
+    "year": "1971",
     "__v": 0
   }
 ```
