@@ -28,6 +28,7 @@
     "react-dom": "^16.8.6",
     "react-markdown": "^4.0.8",
     "request": "^2.88.0",
-    "styled-components": "^4.2.1"
+    "styled-components": "^4.2.1",
+    "jquery": "2.2.3"
   }
 }
