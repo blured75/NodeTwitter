@@ -1,0 +1,33 @@
+{
+  "name": "test_nextjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "babel-plugin-styled-components": "^1.10.0",
+    "body-parser": "^1.19.0",
+    "cowsay-browser": "^1.1.8",
+    "express": "^4.17.0",
+    "http-proxy": "^1.17.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "mobx": "^5.10.0",
+    "mobx-react": "^6.0.3",
+    "mongoose": "^5.5.11",
+    "next": "^9.3.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-markdown": "^4.0.8",
+    "request": "^2.88.0",
+    "styled-components": "^4.2.1"
+  }
+}
